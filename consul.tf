@@ -18,7 +18,7 @@ resource "aws_instance" "server" {
     }
 
     provisioner "file" {
-        source = path.module/shared/scripts/lookup(var.service_conf, var.platform)
+        source = "${path.module}/shared/scripts/${lookup(var.service_conf, var.platform)}"
         destination = "/tmp/${lookup(var.service_conf_dest, var.platform)}"
     }
 
@@ -42,7 +42,7 @@ resource "aws_instance" "server" {
 resource "aws_security_group" "consul" {
     name = "consul_${var.platform}"
     description = "Consul internal traffic + maintenance."
-    vpc_id = var.vpc_id
+    vpc_id = "${var.vpc_id}"
 
     // These are for internal traffic
     ingress {
