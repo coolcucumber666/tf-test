@@ -1,9 +1,9 @@
 resource "aws_instance" "server" {
-    ami = lookup(var.ami, "${var.region}-${var.platform}")
+    ami = "${lookup(var.ami, "${var.region}-${var.platform}")}"
     instance_type = var.instance_type
     key_name = var.key_name
     count = var.servers
-    security_groups = aws_security_group.consul.id
+    security_groups = ["${aws_security_group.consul.id}"]
     subnet_id = lookup(var.subnets, count.index % var.servers)
 
     connection {
