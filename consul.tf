@@ -12,8 +12,8 @@ resource "aws_instance" "server" {
     }
 
     #Instance tags
-    tags {
-        Name = var.tagName-count.index
+    tags = {
+        Name = "${var.tagName}-${count.index}"
         ConsulRole = "Server"
     }
 
