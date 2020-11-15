@@ -1,24 +1,24 @@
 resource "aws_instance" "server" {
-    ami = "${lookup(var.ami, "${var.region}-${var.platform}")}"
-    instance_type = "${var.instance_type}"
-    key_name = "${var.key_name}"
-    count = "${var.servers}"
-    security_groups = ["${aws_security_group.consul.id}"]
-    subnet_id = "${lookup(var.subnets, count.index % var.servers)}"
+    ami = lookup(var.ami, var.region-var.platform)
+    instance_type = var.instance_type
+    key_name = var.key_name
+    count = var.servers
+    security_groups = aws_security_group.consul.id
+    subnet_id = lookup(var.subnets, count.index % var.servers)
 
     connection {
-        user = "${lookup(var.user, var.platform)}"
-        private_key = "${file("${var.key_path}")}"
+        user = lookup(var.user, var.platform)
+        private_key = file(var.key_path)
     }
 
     #Instance tags
     tags {
-        Name = "${var.tagName}-${count.index}"
+        Name = var.tagName-count.index
         ConsulRole = "Server"
     }
 
     provisioner "file" {
-        source = "${path.module}/shared/scripts/${lookup(var.service_conf, var.platform)}"
+        source = path.module/shared/scripts/lookup(var.service_conf, var.platform)
         destination = "/tmp/${lookup(var.service_conf_dest, var.platform)}"
     }
 
@@ -40,9 +40,9 @@ resource "aws_instance" "server" {
 }
 
 resource "aws_security_group" "consul" {
-    name = "consul_${var.platform}"
+    name = "consul_"var.platform
     description = "Consul internal traffic + maintenance."
-    vpc_id = "${var.vpc_id}"
+    vpc_id = var.vpc_id
 
     // These are for internal traffic
     ingress {
