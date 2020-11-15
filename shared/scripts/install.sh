@@ -6,7 +6,7 @@ if [ -x "$(command -v apt-get)" ]; then
   sudo su -s /bin/bash -c 'sleep 30 && apt-get update && apt-get install unzip' root
 else
   sudo yum update -y
-  sudo yum install -y unzip wget
+  sudo yum install -y unzip wget iptables-services
 fi
 
 
@@ -51,4 +51,8 @@ else
   sudo mv /tmp/consul_flags /etc/sysconfig/consul
   sudo chown root:root /etc/sysconfig/consul
   sudo chmod 0644 /etc/sysconfig/consul
+  echo "Starting iptables service..."
+  sudo systemctl enable iptables
+  sudo systemctl start iptables
+  sudo iptables -L
 fi
