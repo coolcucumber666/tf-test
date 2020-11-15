@@ -42,7 +42,7 @@ resource "aws_instance" "server" {
 resource "aws_security_group" "consul" {
     name = "consul_${var.platform}"
     description = "Consul internal traffic + maintenance."
-    vpc_id = "${var.vpc_id}"
+    vpc_id = var.vpc_id
 
     // These are for internal traffic
     ingress {
