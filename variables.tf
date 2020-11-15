@@ -1,5 +1,5 @@
 variable "platform" {
-  default     = "ubuntu"
+  default     = "rhel7"
   description = "The OS Platform"
 }
 
@@ -37,7 +37,7 @@ variable "ami" {
     us-east-1-centos6     = "ami-57cd8732"
     us-east-2-centos6     = "ami-c299c2a7"
     us-west-2-centos6     = "ami-1255b321"
-    us-east-1-rhel7       = "ami-2051294a"
+    us-east-1-rhel7       = "ami-032e5b6af8a711f30"
     us-east-2-rhel7       = "ami-0a33696f"
     us-west-2-rhel7       = "ami-775e4f16"
     us-east-1-centos7     = "ami-6d1c2007"
